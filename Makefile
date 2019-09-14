@@ -9,11 +9,13 @@ AS_FLAGS  :=
 LD_FLAGS  :=
 FIX_FLAGS :=
 
-OBJ_DIR := ./build/objs
-ROM_DIR := ./build/roms
-SRCS    := $(shell find tests -type f -name '*.asm')
-OBJS    := $(SRCS:%.asm=$(OBJ_DIR)/%.o)
-ROMS    := $(SRCS:%.asm=$(ROM_DIR)/%.gb)
+OBJ_DIR  := ./build/objs
+ROM_DIR  := ./build/roms
+LIB_SRCS := $(shell find lib -type f -name '*.asm')
+LIB_OBJS := $(LIB_SRCS:%.asm=$(OBJ_DIR)/%.o)
+SRCS     := $(shell find tests -type f -name '*.asm')
+OBJS     := $(SRCS:%.asm=$(OBJ_DIR)/%.o)
+ROMS     := $(SRCS:%.asm=$(ROM_DIR)/%.gb)
 
 FONT_SRC := font.png
 FONT_OUT := build/font.2bpp
@@ -32,9 +34,9 @@ $(OBJ_DIR)/%.o: ./%.asm $(AS)
 	mkdir -p $(@D)
 	$(AS) $(AS_FLAGS) -o $@ $<
 
-$(ROM_DIR)/%.gb: $(OBJ_DIR)/%.o $(LD) $(FIX) $(FONT_OUT)
+$(ROM_DIR)/%.gb: $(OBJ_DIR)/%.o $(LIB_OBJS) $(LD) $(FIX) $(FONT_OUT)
 	mkdir -p $(@D)
-	$(LD) $(LD_FLAGS) -o $@ $<
+	$(LD) $(LD_FLAGS) -o $@ $(LIB_OBJS) $<
 	$(FIX) $(FIX_FLAGS) $@
 
 $(FONT_OUT): $(FONT_SRC) $(GFX)

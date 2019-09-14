@@ -14,6 +14,8 @@ SRCS    := $(shell find tests -type f -name '*.asm')
 OBJS    := $(SRCS:%.asm=$(OBJ_DIR)/%.o)
 ROMS    := $(SRCS:%.asm=$(ROM_DIR)/%.gb)
 
+.SECONDARY: $(ROMS) $(OBJS)
+
 .DELETE_ON_ERROR:
 
 .PHONY: all

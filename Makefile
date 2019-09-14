@@ -2,7 +2,8 @@ TOOLS_PREFIX := ./build/tools
 AS           := $(TOOLS_PREFIX)/bin/rgbasm
 LD           := $(TOOLS_PREFIX)/bin/rgblink
 FIX          := $(TOOLS_PREFIX)/bin/rgbfix
-TOOLS        := $(AS) $(LD) $(FIX)
+GFX          := $(TOOLS_PREFIX)/bin/rgbgfx
+TOOLS        := $(AS) $(LD) $(FIX) $(GFX)
 
 AS_FLAGS  :=
 LD_FLAGS  :=
@@ -13,6 +14,9 @@ ROM_DIR := ./build/roms
 SRCS    := $(shell find tests -type f -name '*.asm')
 OBJS    := $(SRCS:%.asm=$(OBJ_DIR)/%.o)
 ROMS    := $(SRCS:%.asm=$(ROM_DIR)/%.gb)
+
+FONT_SRC := font.png
+FONT_OUT := build/font.2bpp
 
 .SECONDARY: $(ROMS) $(OBJS)
 
@@ -28,10 +32,13 @@ $(OBJ_DIR)/%.o: ./%.asm $(AS)
 	mkdir -p $(@D)
 	$(AS) $(AS_FLAGS) -o $@ $<
 
-$(ROM_DIR)/%.gb: $(OBJ_DIR)/%.o $(LD) $(FIX)
+$(ROM_DIR)/%.gb: $(OBJ_DIR)/%.o $(LD) $(FIX) $(FONT_OUT)
 	mkdir -p $(@D)
 	$(LD) $(LD_FLAGS) -o $@ $<
 	$(FIX) $(FIX_FLAGS) $@
+
+$(FONT_OUT): $(FONT_SRC) $(GFX)
+	$(GFX) -o $@ $<
 
 $(TOOLS_PREFIX):
 	mkdir -p $@

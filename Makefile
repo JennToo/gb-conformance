@@ -7,7 +7,7 @@ TOOLS        := $(AS) $(LD) $(FIX) $(GFX)
 
 AS_FLAGS  := -i ./include/hardware/
 LD_FLAGS  :=
-FIX_FLAGS :=
+FIX_FLAGS := -f lhg
 
 OBJ_DIR  := ./build/objs
 ROM_DIR  := ./build/roms

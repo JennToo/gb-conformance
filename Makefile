@@ -5,7 +5,7 @@ FIX          := $(TOOLS_PREFIX)/bin/rgbfix
 GFX          := $(TOOLS_PREFIX)/bin/rgbgfx
 TOOLS        := $(AS) $(LD) $(FIX) $(GFX)
 
-AS_FLAGS  :=
+AS_FLAGS  := -i ./include/hardware/
 LD_FLAGS  :=
 FIX_FLAGS :=
 
@@ -20,7 +20,7 @@ ROMS     := $(SRCS:%.asm=$(ROM_DIR)/%.gb)
 FONT_SRC := font.png
 FONT_OUT := build/font.2bpp
 
-.SECONDARY: $(ROMS) $(OBJS)
+.SECONDARY: $(ROMS) $(OBJS) $(LIB_OBJS)
 
 .DELETE_ON_ERROR:
 

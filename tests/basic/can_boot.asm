@@ -6,5 +6,5 @@ SECTION "main",ROM0[$0150]
 main:
     di
     ld sp,$DFFF
-    call setup_font
-    jp main
+    call setup
+    call passed

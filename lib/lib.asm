@@ -54,7 +54,7 @@ passed:
     call wait_for_vblank
     ld hl,passed_msg
     ld de,(passed_msg_end-passed_msg)
-    ld bc,$9800
+    ld bc,$9860
     call memcpy
 .passed_wait:
     ei

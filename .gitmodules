@@ -1,6 +1,6 @@
 [submodule "rgbds"]
 	path = rgbds
-	url = git@github.com:Nitori-/rgbds.git
+	url = https://github.com/Nitori-/rgbds.git
 [submodule "include/hardware"]
 	path = include/hardware
-	url = git@github.com:Nitori-/hardware.inc.git
+	url = https://github.com/Nitori-/hardware.inc.git
